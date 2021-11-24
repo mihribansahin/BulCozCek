@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'UİHelper.dart';
+import '../../helper/UİHelper.dart';
 import 'enter_player_names_screen.dart';
 
 class AppInfoScreen extends StatefulWidget {

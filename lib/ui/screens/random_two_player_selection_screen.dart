@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'UİHelper.dart';
+import '../../helper/UİHelper.dart';
 
 ///TODO: Bu sayfada önceki sayfada eklenen kişiler arasında 2 kişi random olarakseçilir ve kullanıcıya sunulur
 ///progress duuration ile3 saniye formaliteden göster

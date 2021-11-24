@@ -1,11 +1,11 @@
 import 'dart:math';
 import 'dart:ui' as ui;
-import 'package:bul_coz_cek_game/random_two_player_selection_screen.dart';
+import 'random_two_player_selection_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'UİHelper.dart';
+import '../../helper/UİHelper.dart';
 
 class EnterPlayerNamesScreen extends StatefulWidget {
   @override
