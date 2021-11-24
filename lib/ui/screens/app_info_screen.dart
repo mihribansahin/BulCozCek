@@ -1,8 +1,8 @@
 import 'dart:ui' as ui;
+import 'package:bul_coz_cek_game/ui/helper/U%C4%B0Helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../helper/UİHelper.dart';
 import 'enter_player_names_screen.dart';
 
 class AppInfoScreen extends StatefulWidget {
