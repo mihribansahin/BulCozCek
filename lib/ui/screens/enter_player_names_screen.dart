@@ -1,12 +1,13 @@
 import 'dart:math';
 import 'dart:ui' as ui;
+import 'package:bul_coz_cek_game/database/collection/collection.dart';
+import 'package:bul_coz_cek_game/database/user_item.dart';
 import 'package:bul_coz_cek_game/ui/helper/U%C4%B0Helper.dart';
 
 import 'random_two_player_selection_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 
 class EnterPlayerNamesScreen extends StatefulWidget {
   @override
@@ -65,111 +66,131 @@ class EnterPlayerNamesScreenState extends State<EnterPlayerNamesScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(top: 50, left: 10, bottom: 20),
-              child: Text(
-                "Oyuncu İsimlerini Giriniz ",
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.lightBlueAccent),
-              ),
-            ),
-          ),
-          Container(
-            constraints: BoxConstraints(
-                maxHeight: screenHeight * .65,
-                minHeight: screenHeight * .2,
-                minWidth: screenWidth * .2,
-                maxWidth: screenWidth * .7),
-            child: Scrollbar(
-              isAlwaysShown: true,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  itemCount: enterPlayerItemList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return enterPlayerItemList[index];
-                  }),
-            ),
-          ),
-          IconButton(
-              hoverColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onPressed: () {
-                if (usernameController.last.text.isNotEmpty ||
-                    usernameController.last.text.compareTo("") != 0) {
-                  usernameController.add(new TextEditingController());
-                  enterPlayerItemList.add(enterPlayerItemWidget());
-
-                  /// kisiyi db ye kaydet
-
-
-                } else {
-                  Fluttertoast.showToast(
-                      msg: "Lütfen önce tüm alanları doldurunuz",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      backgroundColor: Color(0xffff0000),
-                      textColor: Colors.white,
-                      fontSize: 16,
-                      timeInSecForIosWeb: 3);
-
-                  debugPrint("bos olamaz");
-                }
-                setState(() {});
-              },
-              icon: Icon(
-                Icons.add_circle_outline_sharp,
-                color: UiHelper.myPink,
-                size: 50,
-              )),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 40),
-              child: ElevatedButton(
+      body: Container(
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(top: 50, left: 10, bottom: 20),
                 child: Text(
-                  "KAYDET",
+                  "Oyuncu İsimlerini Giriniz ",
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.lightBlueAccent),
                 ),
-                style: ElevatedButton.styleFrom(
-                  onPrimary: Colors.white,
-                  primary: Colors.lightBlueAccent,
-                  onSurface: Colors.pink,
-                  side: BorderSide(color: Colors.white, width: 0.5),
-                  elevation: 4,
-                  minimumSize: Size(160, 50),
-                  shadowColor: Colors.pink,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)),
-                ),
-                onPressed: () {
-                  for (int i = 0; i < usernameController.length; i++) {
-                    debugPrint(
-                        "Usernameontroller[${i + 1}. oyuncu]: ${usernameController[i].text}");
-                    playerNames.add(usernameController[i].text);
-                  }
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation1, animation2) =>
-                          RandomTwoPlayerSelectionPage(
-                        playerNames: playerNames,
-                      ),
-                    ),
-                  );
-                },
               ),
             ),
-          )
-        ],
+            Container(
+              constraints: BoxConstraints(
+                  maxHeight: screenHeight * .65,
+                  minHeight: screenHeight * .2,
+                  minWidth: screenWidth * .2,
+                  maxWidth: screenWidth * .7),
+              child: Scrollbar(
+                isAlwaysShown: true,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    itemCount: enterPlayerItemList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return enterPlayerItemList[index];
+                    }),
+              ),
+            ),
+            IconButton(
+                hoverColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onPressed: () {
+                  if (usernameController.last.text.isNotEmpty ||
+                      usernameController.last.text.compareTo("") != 0) {
+                    usernameController.add(new TextEditingController());
+                    enterPlayerItemList.add(enterPlayerItemWidget());
+
+                    /// kisiyi db ye kaydet
+
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: "Lütfen önce tüm alanları doldurunuz",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        backgroundColor: Color(0xffff0000),
+                        textColor: Colors.white,
+                        fontSize: 16,
+                        timeInSecForIosWeb: 3);
+
+                    debugPrint("bos olamaz");
+                  }
+                  setState(() {});
+                },
+                icon: Icon(
+                  Icons.add_circle_outline_sharp,
+                  color: UiHelper.myPink,
+                  size: 50,
+                )),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin:
+                    EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 40),
+                child: ElevatedButton(
+                  child: Text(
+                    "KAYDET",
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    onPrimary: Colors.white,
+                    primary: Colors.lightBlueAccent,
+                    onSurface: Colors.pink,
+                    side: BorderSide(color: Colors.white, width: 0.5),
+                    elevation: 4,
+                    minimumSize: Size(160, 50),
+                    shadowColor: Colors.pink,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                  ),
+                  onPressed: () async {
+                    for (int i = 0; i < usernameController.length; i++) {
+                      UserItem userItemObj = UserItem();
+                      debugPrint(
+                          "Usernameontroller[${i + 1}. oyuncu]: ${usernameController[i].text}");
+
+                      await User.findUsername(usernameController[i].text)
+                          .then((value) => {
+                                for (int i = 0; i < value.length; i++)
+                                  {
+                                    debugPrint(
+                                        'db findusername ${value[i].username}'),
+                                  },
+                                if (value.isEmpty)
+                                  {
+                                    debugPrint("find username null ya da bos"),
+                                    User.save(userItemObj)
+                                  }
+                              });
+                      // User.save(userItemObj);
+
+                      playerNames.add(usernameController[i].text);
+                    }
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) =>
+                            RandomTwoPlayerSelectionPage(
+                          playerNames: playerNames,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

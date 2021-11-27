@@ -1,11 +1,11 @@
-class Users {
+class TableUsers {
   static final String tableName = "Users";
   static final String id = "id";
   static final String username = "username";
   static final String point = "point";
 }
 
-class KarsilasmaAni{
+class TableKarsilasmaAni{
 
   static final String tableName ="KarsilasmaAni";
   static final String game_id ="game_id";
@@ -17,7 +17,7 @@ class KarsilasmaAni{
 
 }
 
-class Questions{
+class TableQuestions{
 
   static final String tableName ="Questions";
   static final String que_id ="que_id";
@@ -29,7 +29,7 @@ class Questions{
 
 
 
-class GecmisKarsilasmalar{
+class TableGecmisKarsilasmalar{
 
   static final String tableName = "GecmisKarsilasmalar";
   static final String finished_game_id = "finished_game_id";

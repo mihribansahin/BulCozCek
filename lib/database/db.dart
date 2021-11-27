@@ -25,9 +25,9 @@ class db {
 
   //TabelCari id si yok!
   void createDb(Database db, int version) async {
-    await db.execute("CREATE TABLE ${Users.tableName} (${Users.id} INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ${Users.username} TEXT, ${Users.point}  INTEGER DEFAULT 0 NOT NULL)");
-    await db.execute("CREATE TABLE ${KarsilasmaAni.tableName}(${KarsilasmaAni.game_id}   INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , ${KarsilasmaAni.first_player_id} INTEGER, ${KarsilasmaAni.first_player_name} TEXT,${KarsilasmaAni.second_player_id} INTEGER ,${KarsilasmaAni.second_player_name} TEXT, ${KarsilasmaAni.que_id} INTEGER DEFAULT 0 NOT NULL )");
-    await db.execute("CREATE TABLE ${GecmisKarsilasmalar.tableName}(${GecmisKarsilasmalar.finished_game_id} INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ${GecmisKarsilasmalar.game_id} INTEGER,  ${GecmisKarsilasmalar.game_date} TEXT,${GecmisKarsilasmalar.score} INTEGER, ${GecmisKarsilasmalar.winner_player_name}  TEXT )");
-    await db.execute("CREATE TABLE ${Questions.tableName}(${Questions.que_id}  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ${Questions.answer} TEXT, ${Questions.que_point} INTEGER ,${Questions.question} TEXT)");
+    await db.execute("CREATE TABLE ${TableUsers.tableName} (${TableUsers.id} INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ${TableUsers.username} TEXT, ${TableUsers.point}  INTEGER DEFAULT 0 NOT NULL)");
+    await db.execute("CREATE TABLE ${TableKarsilasmaAni.tableName}(${TableKarsilasmaAni.game_id}   INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , ${TableKarsilasmaAni.first_player_id} INTEGER, ${TableKarsilasmaAni.first_player_name} TEXT,${TableKarsilasmaAni.second_player_id} INTEGER ,${TableKarsilasmaAni.second_player_name} TEXT, ${TableKarsilasmaAni.que_id} INTEGER DEFAULT 0 NOT NULL )");
+    await db.execute("CREATE TABLE ${TableGecmisKarsilasmalar.tableName}(${TableGecmisKarsilasmalar.finished_game_id} INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ${TableGecmisKarsilasmalar.game_id} INTEGER,  ${TableGecmisKarsilasmalar.game_date} TEXT,${TableGecmisKarsilasmalar.score} INTEGER, ${TableGecmisKarsilasmalar.winner_player_name}  TEXT )");
+    await db.execute("CREATE TABLE ${TableQuestions.tableName}(${TableQuestions.que_id}  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ${TableQuestions.answer} TEXT, ${TableQuestions.que_point} INTEGER ,${TableQuestions.question} TEXT)");
   }
 }

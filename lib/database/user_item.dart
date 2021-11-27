@@ -6,31 +6,32 @@ class UserItem {
   int? id;
   String? username;
   int? point;
+  UserItem({this.id, this.username, this.point});
 
   Map<dynamic, dynamic> userItemToMap() {
     var userItems = Map<String, dynamic>();
 
-    userItems[Users.id] = id;
-    userItems[Users.username] = username;
-    userItems[Users.point] = point;
+    userItems[TableUsers.id] = id;
+    userItems[TableUsers.username] = username;
+    userItems[TableUsers.point] = point;
     return userItems;
   }
 
   UserItem.fromMap(HashMap<String, dynamic> map) {
-    this.id = map[Users.id];
-    this.username = map[Users.username];
-    this.point = map[Users.point];
+    this.id = map[TableUsers.id];
+    this.username = map[TableUsers.username];
+    this.point = map[TableUsers.point];
   }
 
   UserItem.fromJsonMap(Map<String, dynamic> json) {
-    this.id = json[Users.id];
-    this.username = json[Users.username];
-    this.point = json[Users.point];
+    this.id = json[TableUsers.id];
+    this.username = json[TableUsers.username];
+    this.point = json[TableUsers.point];
   }
 
   Map<String, dynamic> toJson() => {
-        Users.id: this.id,
-        Users.username: this.username,
-        Users.point: this.point,
+        TableUsers.id: this.id,
+        TableUsers.username: this.username,
+        TableUsers.point: this.point,
       };
 }

@@ -11,31 +11,31 @@ class QuestionItem {
   Map<dynamic, dynamic> QuestionItemToMap() {
     var item = Map<String, dynamic>();
 
-    item[Questions.que_id] = queId;
-    item[Questions.que_point] = quePoint;
-    item[Questions.question] = question;
-    item[Questions.answer] = answer;
+    item[TableQuestions.que_id] = queId;
+    item[TableQuestions.que_point] = quePoint;
+    item[TableQuestions.question] = question;
+    item[TableQuestions.answer] = answer;
     return item;
   }
 
   QuestionItem.fromMap(HashMap<String, dynamic> map) {
-    this.queId = map[Questions.que_id];
-    this.quePoint = map[Questions.que_point];
-    this.question = map[Questions.question];
-    this.answer = map[Questions.answer];
+    this.queId = map[TableQuestions.que_id];
+    this.quePoint = map[TableQuestions.que_point];
+    this.question = map[TableQuestions.question];
+    this.answer = map[TableQuestions.answer];
   }
 
   QuestionItem.fromJsonMap(Map<String, dynamic> json) {
-    this.queId = json[Questions.que_id];
-    this.quePoint = json[Questions.que_point];
-    this.question = json[Questions.question];
-    this.answer = json[Questions.answer];
+    this.queId = json[TableQuestions.que_id];
+    this.quePoint = json[TableQuestions.que_point];
+    this.question = json[TableQuestions.question];
+    this.answer = json[TableQuestions.answer];
   }
 
   Map<String, dynamic> toJson() => {
-        Questions.que_id: this.queId,
-        Questions.que_point: this.quePoint,
-        Questions.question: this.question,
-        Questions.answer: this.answer,
+        TableQuestions.que_id: this.queId,
+        TableQuestions.que_point: this.quePoint,
+        TableQuestions.question: this.question,
+        TableQuestions.answer: this.answer,
       };
 }
