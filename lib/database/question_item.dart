@@ -8,6 +8,8 @@ class QuestionItem {
   String? question;
   String? answer;
 
+  QuestionItem({this.queId,this.question,this.quePoint, this.answer});
+
   Map<dynamic, dynamic> QuestionItemToMap() {
     var item = Map<String, dynamic>();
 

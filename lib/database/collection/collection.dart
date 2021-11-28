@@ -1,4 +1,10 @@
 import 'package:bul_coz_cek_game/database/db.dart';
+import 'package:bul_coz_cek_game/database/gecmis_karsilasma_dao.dart';
+import 'package:bul_coz_cek_game/database/gecmis_karsilasma_item.dart';
+import 'package:bul_coz_cek_game/database/karsilasma_dao.dart';
+import 'package:bul_coz_cek_game/database/karsilasma_item.dart';
+import 'package:bul_coz_cek_game/database/question_dao.dart';
+import 'package:bul_coz_cek_game/database/question_item.dart';
 import 'package:bul_coz_cek_game/database/user_dao.dart';
 import 'package:bul_coz_cek_game/database/user_item.dart';
 import 'package:flutter/material.dart';
@@ -32,22 +38,18 @@ class Collection {
   }
 }
 
-class User{
+class User {
   static UserDao? dao;
 
   static Future<UserDao?> _controlDAO() async {
     if (dao == null) {
-      //  debugPrint("KONTROL DAO NULL");
       dao = new UserDao(await db().database);
       if (dao != null) {
-        //debugPrint("KONTROL CariDAO DAO ARTIK NULL DEGİL");
         return dao;
       }
 
       return dao;
     }
-
-    //if (dao == null) dao = new cariDAO(Collection.database);
   }
 
   static Future<void> OpenSharedDataBase() async {
@@ -71,22 +73,144 @@ class User{
 
   static Future<List<UserItem>> findUsername(String username) async {
     await _controlDAO();
-    return await dao!.find(username);
+    return await dao!.findUsername(username);
   }
-
-
 
   static Future<int?> userCount() async {
     await _controlDAO();
     return dao!.userCount();
   }
 }
-class GecmisKarsilasma{
 
+class Question {
+  static QuestionDao? dao;
+
+  static Future<QuestionDao?> _controlDAO() async {
+    if (dao == null) {
+      dao = new QuestionDao(await db().database);
+      if (dao != null) {
+        return dao;
+      }
+
+      return dao;
+    }
+  }
+
+  static Future<void> OpenSharedDataBase() async {
+    await _controlDAO();
+    dao!.OpenSharedDataBase();
+  }
+
+  static void CloseSharedDataBase() {
+    if (dao != null) dao!.CloseSharedDataBase();
+  }
+
+  static void save(QuestionItem? item) async {
+    await _controlDAO();
+    dao!.insert(item!);
+  }
+
+  static void deleteAll() async {
+    await _controlDAO();
+    dao!.deleteAll();
+  }
+
+  static Future<List<QuestionItem>> findUsername(int queId) async {
+    await _controlDAO();
+    return await dao!.find(queId);
+  }
+
+  static Future<int?> questionCount() async {
+    await _controlDAO();
+    return dao!.questionCount();
+  }
 }
-class Question{
 
+class Karsilasma {
+  static KarsilasmaDao? dao;
+
+  static Future<KarsilasmaDao?> _controlDAO() async {
+    if (dao == null) {
+      dao = new KarsilasmaDao(await db().database);
+      if (dao != null) {
+        return dao;
+      }
+
+      return dao;
+    }
+  }
+
+  static Future<void> OpenSharedDataBase() async {
+    await _controlDAO();
+    dao!.OpenSharedDataBase();
+  }
+
+  static void CloseSharedDataBase() {
+    if (dao != null) dao!.CloseSharedDataBase();
+  }
+
+  static void save(KarsilasmaAniItem? item) async {
+    await _controlDAO();
+    dao!.insert(item!);
+  }
+
+  static void deleteAll() async {
+    await _controlDAO();
+    dao!.deleteAll();
+  }
+
+  static Future<List<KarsilasmaAniItem>> findKarsilasma(int queId) async {
+    await _controlDAO();
+    return await dao!.findKarsilasma(queId);
+  }
+
+  static Future<int?> karsilasmaCount() async {
+    await _controlDAO();
+    return dao!.karsilasmaCount();
+  }
 }
-class Karsilasma{
 
+class GecmisKarsilasma {
+  static GecmisKarsilasmaDao? dao;
+
+  static Future<GecmisKarsilasmaDao?> _controlDAO() async {
+    if (dao == null) {
+      dao = new GecmisKarsilasmaDao(await db().database);
+      if (dao != null) {
+        return dao;
+      }
+
+      return dao;
+    }
+  }
+
+  static Future<void> OpenSharedDataBase() async {
+    await _controlDAO();
+    dao!.OpenSharedDataBase();
+  }
+
+  static void CloseSharedDataBase() {
+    if (dao != null) dao!.CloseSharedDataBase();
+  }
+
+  static void save(GecmisKarsilasmaItem? item) async {
+    await _controlDAO();
+    dao!.insert(item!);
+  }
+
+  static void deleteAll() async {
+    await _controlDAO();
+    dao!.deleteAll();
+  }
+
+  static Future<List<GecmisKarsilasmaItem>> findGecmisKarsilasma(
+      int finishedGameId) async {
+    await _controlDAO();
+    return await dao!.findGecmisKarsilasma(finishedGameId);
+  }
+
+  static Future<int?> gecmisKarsilasmaCount() async {
+    await _controlDAO();
+    return dao!.gecmisKarsilasmalarCount();
+  }
 }

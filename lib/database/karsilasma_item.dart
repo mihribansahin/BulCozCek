@@ -13,6 +13,13 @@ class KarsilasmaAniItem{
   int? queId;
 
 
+  KarsilasmaAniItem(
+      {this.gameId,
+      this.firstPlayerId,
+      this.secondPlayerId,
+      this.firstPlayerName,
+      this.secondPlayerName,
+      this.queId});
 
   Map<dynamic, dynamic> karsilasmaAniItemsToMap() {
     var karsilasmaItems = Map<String, dynamic>();

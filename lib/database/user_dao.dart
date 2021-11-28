@@ -17,8 +17,6 @@ class UserDao {
     _myDB = conn;
   }
 
-
-
   void OpenSharedDataBase() {
     this._myDB = _con.database as Database?;
   }
@@ -47,29 +45,40 @@ class UserDao {
   }
 
   // A method that retrieves all the dogs from the dogs table.
-  Future<List<UserItem>> find(String username) async {
+  Future<List<UserItem>> findUsername(String username) async {
     // Get a reference to the database.
     final db = await this._myDB;
 
     // Query the table for all The cariItem.
     final List<Map<String, dynamic>> maps = await db!.rawQuery(
-        "SELECT " +
-            TableUsers.id +
-            "," +
-            TableUsers.username +
-            "," +
-            TableUsers.point +
-            " FROM " +
+        "SELECT * FROM " +
             TableUsers.tableName +
-            " WHERE " +
-            TableUsers.username +
-            "=?",
-        [username]);
-
+            " WHERE ${TableUsers.username} = '$username' ");
     // Convert the List<Map<String, dynamic> into a List<Dog>.
     return List.generate(
       maps.length,
-          (i) {
+      (i) {
+        return UserItem(
+          id: maps[i][TableUsers.id],
+          username: maps[i][TableUsers.username],
+          point: maps[i][TableUsers.point],
+        );
+      },
+    );
+  }
+  Future<List<UserItem>> findUserId(int userId) async {
+    // Get a reference to the database.
+    final db = await this._myDB;
+
+    // Query the table for all The cariItem.
+    final List<Map<String, dynamic>> maps = await db!.rawQuery(
+        "SELECT * FROM " +
+            TableUsers.tableName +
+            " WHERE ${TableUsers.id} = '$userId' ");
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(
+      maps.length,
+      (i) {
         return UserItem(
           id: maps[i][TableUsers.id],
           username: maps[i][TableUsers.username],
@@ -88,7 +97,6 @@ class UserDao {
     }
   }
 
-
   ///bunları düzenleeeeee
 
   Future<int?> userCount() async {
@@ -96,8 +104,8 @@ class UserDao {
     //database connection
     try {
       Database? db = this._myDB;
-      var x =
-      await db!.rawQuery("select count(1) from " + TableUsers.tableName, []);
+      var x = await db!
+          .rawQuery("select count(1) from " + TableUsers.tableName, []);
       count = Sqflite.firstIntValue(x);
     } catch (e) {
       debugPrint("$TAG, $e");

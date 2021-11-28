@@ -158,33 +158,56 @@ class EnterPlayerNamesScreenState extends State<EnterPlayerNamesScreen> {
                       UserItem userItemObj = UserItem();
                       debugPrint(
                           "Usernameontroller[${i + 1}. oyuncu]: ${usernameController[i].text}");
+                      userItemObj.username = usernameController[i].text;
+                      userItemObj.point = 88;
+                      User.userCount()
+                          .then((value) => {userItemObj.id = value! - 1});
 
                       await User.findUsername(usernameController[i].text)
                           .then((value) => {
                                 for (int i = 0; i < value.length; i++)
                                   {
                                     debugPrint(
-                                        'db findusername ${value[i].username}'),
+                                        'db finder username ${value[i].username}'),
                                   },
-                                if (value.isEmpty)
+                                if (value.isEmpty || value.length <= 0)
                                   {
-                                    debugPrint("find username null ya da bos"),
-                                    User.save(userItemObj)
+                                    debugPrint("kisi daha once kayıt olmamış"),
+                                    if(usernameController[i].text.isNotEmpty || usernameController[i].text.length>0){
+                                      User.save(userItemObj),
+
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          pageBuilder:
+                                              (context, animation1, animation2) =>
+                                              RandomTwoPlayerSelectionPage(
+                                                playerNames: playerNames,
+                                              ),
+                                        ),
+                                      ),
+
+                                    } else{
+                                      Fluttertoast.showToast(
+                                          msg:
+                                          "Kullanıcı adı boş kaydedilemez !",backgroundColor: Colors.red),
+
+                                    },
+
+                                  }
+                                else if (value.length > 0)
+                                  {
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            "${usernameController[i].text}  kullanıcısı zaten var. ",backgroundColor: Colors.pink),
                                   }
                               });
-                      // User.save(userItemObj);
+
+                      ///TODO:  her şartta save a girmesin!!
+                      //    User.save(userItemObj);
 
                       playerNames.add(usernameController[i].text);
                     }
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            RandomTwoPlayerSelectionPage(
-                          playerNames: playerNames,
-                        ),
-                      ),
-                    );
                   },
                 ),
               ),

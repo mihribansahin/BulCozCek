@@ -8,8 +8,7 @@ class GecmisKarsilasmaItem {
   DateTime? gameDate;
   int? score;
   String? winnerPlayerName;
-
-
+  GecmisKarsilasmaItem({this.finishedGameId,this.gameId, this.gameDate, this.score, this.winnerPlayerName});
   Map<dynamic, dynamic> gecmisKarsilasmaItemToMap() {
     var items = Map<String, dynamic>();
 
