@@ -76,6 +76,11 @@ class User {
     return await dao!.findUsername(username);
   }
 
+  static Future<List<UserItem>> finAlldUser() async {
+    await _controlDAO();
+    return await dao!.findAllUser();
+  }
+
   static Future<int?> userCount() async {
     await _controlDAO();
     return dao!.userCount();

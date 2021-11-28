@@ -18,43 +18,60 @@ class EnterPlayerNamesScreenState extends State<EnterPlayerNamesScreen> {
   List<Widget> enterPlayerItemList = [];
   List<TextEditingController> usernameController = [];
   int myIndex = 0;
+  int temp = 0;
   List<String> playerNames = [];
 
   @override
   void initState() {
     // TODO: implement initState
     usernameController.add(new TextEditingController());
-    enterPlayerItemList.add(enterPlayerItemWidget());
+
     super.initState();
   }
 
-  Widget enterPlayerItemWidget() {
+  Widget enterPlayerItemWidget(BuildContext? context, int index) {
     return Container(
       height: 50,
       margin: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
-      child: TextField(
-        controller: usernameController.last,
-        autocorrect: true,
-        decoration: InputDecoration(
-          hintText: 'Enter Username',
-          hintStyle: TextStyle(color: Colors.grey),
-          filled: true,
-          fillColor: Colors.white70,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15.0)),
-            borderSide: BorderSide(
-              color: Color(0xff898989),
-              width: 1,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: MediaQuery.of(context!).size.width * .75,
+            child: TextField(
+              controller: usernameController.last,
+              autocorrect: true,
+              decoration: InputDecoration(
+                hintText: 'Enter Username',
+                hintStyle: TextStyle(color: Colors.grey),
+                filled: true,
+                fillColor: Colors.white70,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  borderSide: BorderSide(
+                    color: Color(0xff898989),
+                    width: 1,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  borderSide: BorderSide(
+                    width: 1,
+                    color: Color(0xffff00b9),
+                  ),
+                ),
+              ),
             ),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15.0)),
-            borderSide: BorderSide(
-              width: 1,
-              color: Color(0xffff00b9),
-            ),
-          ),
-        ),
+          Container(
+              width: MediaQuery.of(context).size.width * .1,
+              child: IconButton(onPressed: () {
+
+                debugPrint("silinen item index : $index");
+
+              }, icon: Icon(Icons.delete)))
+        ],
       ),
     );
   }
@@ -63,6 +80,10 @@ class EnterPlayerNamesScreenState extends State<EnterPlayerNamesScreen> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    if (temp == 0) {
+      enterPlayerItemList.add(enterPlayerItemWidget(context, 0));
+      temp = 1;
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -89,7 +110,7 @@ class EnterPlayerNamesScreenState extends State<EnterPlayerNamesScreen> {
                   maxHeight: screenHeight * .65,
                   minHeight: screenHeight * .2,
                   minWidth: screenWidth * .2,
-                  maxWidth: screenWidth * .7),
+                  maxWidth: screenWidth * .8),
               child: Scrollbar(
                 isAlwaysShown: true,
                 child: ListView.builder(
@@ -110,7 +131,7 @@ class EnterPlayerNamesScreenState extends State<EnterPlayerNamesScreen> {
                   if (usernameController.last.text.isNotEmpty ||
                       usernameController.last.text.compareTo("") != 0) {
                     usernameController.add(new TextEditingController());
-                    enterPlayerItemList.add(enterPlayerItemWidget());
+                    enterPlayerItemList.add(enterPlayerItemWidget(context, enterPlayerItemList.length));
 
                     /// kisiyi db ye kaydet
 
@@ -161,7 +182,7 @@ class EnterPlayerNamesScreenState extends State<EnterPlayerNamesScreen> {
                       userItemObj.username = usernameController[i].text;
                       userItemObj.point = 88;
                       User.userCount()
-                          .then((value) => {userItemObj.id = value! - 1});
+                          .then((value) => {userItemObj.id = value! + 1});
 
                       await User.findUsername(usernameController[i].text)
                           .then((value) => {
@@ -173,40 +194,50 @@ class EnterPlayerNamesScreenState extends State<EnterPlayerNamesScreen> {
                                 if (value.isEmpty || value.length <= 0)
                                   {
                                     debugPrint("kisi daha once kayıt olmamış"),
-                                    if(usernameController[i].text.isNotEmpty || usernameController[i].text.length>0){
-                                      User.save(userItemObj),
-
-                                      Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          pageBuilder:
-                                              (context, animation1, animation2) =>
-                                              RandomTwoPlayerSelectionPage(
-                                                playerNames: playerNames,
-                                              ),
+                                    if (usernameController[i].text.isNotEmpty ||
+                                        usernameController[i].text.length > 0)
+                                      {
+                                        User.save(userItemObj),
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation1,
+                                                    animation2) =>
+                                                RandomTwoPlayerSelectionPage(
+                                              playerNames: playerNames,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-
-                                    } else{
-                                      Fluttertoast.showToast(
-                                          msg:
-                                          "Kullanıcı adı boş kaydedilemez !",backgroundColor: Colors.red),
-
-                                    },
-
+                                      }
+                                    else
+                                      {
+                                        Fluttertoast.showToast(
+                                            msg:
+                                                "Kullanıcı adı boş kaydedilemez !",
+                                            backgroundColor: Colors.red),
+                                      },
                                   }
                                 else if (value.length > 0)
                                   {
                                     Fluttertoast.showToast(
                                         msg:
-                                            "${usernameController[i].text}  kullanıcısı zaten var. ",backgroundColor: Colors.pink),
+                                            "${usernameController[i].text}  kullanıcısı zaten var. ",
+                                        backgroundColor: Colors.pink),
                                   }
                               });
 
                       ///TODO:  her şartta save a girmesin!!
                       //    User.save(userItemObj);
 
-                      playerNames.add(usernameController[i].text);
+                      await User.finAlldUser().then((value) => {
+                            for (int i = 0; i < value.length; i++)
+                              {
+                                debugPrint(
+                                    "bulunan db user name : ${value[i].username} puanı : ${value[i].point}"),
+                                playerNames.add(value[i].username!),
+                              }
+                          });
+                      //playerNames.add(usernameController[i].text);
                     }
                   },
                 ),

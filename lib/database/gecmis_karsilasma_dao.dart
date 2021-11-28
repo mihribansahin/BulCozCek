@@ -35,10 +35,10 @@ class GecmisKarsilasmaDao {
       }
       _myValues!.clear();
       _myValues![TableGecmisKarsilasmalar.finished_game_id] = item!.finishedGameId;
-      _myValues![TableGecmisKarsilasmalar.game_id] = item!.gameId;
-      _myValues![TableGecmisKarsilasmalar.score] = item!.score;
-      _myValues![TableGecmisKarsilasmalar.winner_player_name] = item!.winnerPlayerName;
-      _myValues![TableGecmisKarsilasmalar.game_date] = item!.gameDate;
+      _myValues![TableGecmisKarsilasmalar.game_id] = item.gameId;
+      _myValues![TableGecmisKarsilasmalar.score] = item.score;
+      _myValues![TableGecmisKarsilasmalar.winner_player_name] = item.winnerPlayerName;
+      _myValues![TableGecmisKarsilasmalar.game_date] = item.gameDate;
 
       _myDB!.insert(TableGecmisKarsilasmalar.tableName, _myValues!);
       debugPrint("{$TAG, ${TableGecmisKarsilasmalar.tableName} +  insert succeeded}");

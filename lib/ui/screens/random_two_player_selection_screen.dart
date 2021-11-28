@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-
 ///TODO: Bu sayfada önceki sayfada eklenen kişiler arasında 2 kişi random olarakseçilir ve kullanıcıya sunulur
 ///progress duuration ile3 saniye formaliteden göster
 ///
@@ -34,13 +33,16 @@ class RandomTwoPlayerSelectionPageState
     super.initState();
 
     visibilityProgress = true;
-    for (int i = 0; i < widget.playerNames.length; i++) {
-      debugPrint("player names $i ${widget.playerNames[i]}");
+
+    for(int i = 0; i< widget.playerNames.length ; i++){
+      debugPrint("yeni sayfaya gelen playerNames :  ${widget.playerNames[i]}");
     }
 
-    item1 = widget.playerNames[random.nextInt(widget.playerNames.length)];
-    item2 = widget.playerNames[random.nextInt(widget.playerNames.length)];
 
+    if (widget.playerNames.length > 0) {
+      item1 = widget.playerNames[random.nextInt(widget.playerNames.length)];
+      item2 = widget.playerNames[random.nextInt(widget.playerNames.length)];
+    }
     print("item 1: $item1, item 2: $item2");
 
     Future.delayed(
@@ -170,19 +172,23 @@ class RandomTwoPlayerSelectionPageState
                                 color: Colors.pink.shade100,
                                 spreadRadius: 1,
                                 blurRadius: 10,
-                                offset: Offset(0, 0), // changes position of shadow
+                                offset:
+                                    Offset(0, 0), // changes position of shadow
                               ),
                             ],
                           ),
                           child: Center(
                             child: Text(
                               item1,
-                              style: TextStyle(color: Colors.black, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
                             ),
                           ),
                         ),
-                        Text("VS", style: TextStyle(fontSize: 60, color: Colors.white),),
-
+                        Text(
+                          "VS",
+                          style: TextStyle(fontSize: 60, color: Colors.white),
+                        ),
                         Container(
                           height: 100,
                           width: 100,
@@ -199,14 +205,16 @@ class RandomTwoPlayerSelectionPageState
                                 color: Colors.pink.shade100,
                                 spreadRadius: 1,
                                 blurRadius: 10,
-                                offset: Offset(0, 0), // changes position of shadow
+                                offset:
+                                    Offset(0, 0), // changes position of shadow
                               ),
                             ],
                           ),
                           child: Center(
                             child: Text(
                               item2,
-                              style: TextStyle(color: Colors.black, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
                             ),
                           ),
                         )

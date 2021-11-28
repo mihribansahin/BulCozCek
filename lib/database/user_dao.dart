@@ -66,6 +66,28 @@ class UserDao {
       },
     );
   }
+
+  // A method that retrieves all the dogs from the dogs table.
+  Future<List<UserItem>> findAllUser() async {
+    // Get a reference to the database.
+    final db = await this._myDB;
+
+    // Query the table for all The cariItem.
+    final List<Map<String, dynamic>> maps = await db!.rawQuery(
+        "SELECT * FROM " +
+            TableUsers.tableName);
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(
+      maps.length,
+          (i) {
+        return UserItem(
+          id: maps[i][TableUsers.id],
+          username: maps[i][TableUsers.username],
+          point: maps[i][TableUsers.point],
+        );
+      },
+    );
+  }
   Future<List<UserItem>> findUserId(int userId) async {
     // Get a reference to the database.
     final db = await this._myDB;
