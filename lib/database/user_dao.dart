@@ -8,6 +8,7 @@ import 'package:sqflite/sqflite.dart';
 import 'db.dart';
 
 class UserDao {
+
   late db _con;
   Database? _myDB;
   Map<String, dynamic>? _myValues;

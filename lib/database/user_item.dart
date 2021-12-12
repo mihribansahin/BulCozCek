@@ -6,6 +6,7 @@ class UserItem {
   int? id;
   String? username;
   int? point;
+
   UserItem({this.id, this.username, this.point});
 
   Map<dynamic, dynamic> userItemToMap() {

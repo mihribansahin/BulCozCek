@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:ui' as ui;
+import 'package:bul_coz_cek_game/ui/screens/question_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -150,7 +151,7 @@ class RandomTwoPlayerSelectionPageState
               Visibility(
                 visible: !visibilityProgress,
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -219,6 +220,32 @@ class RandomTwoPlayerSelectionPageState
                           ),
                         )
                       ],
+                    ),
+                    SizedBox(height: 100,),
+
+                    ElevatedButton(
+                      child: Text("BAŞLA",style: TextStyle(fontSize: 18),),
+                      style: ElevatedButton.styleFrom(
+                        onPrimary: Colors.white,
+                        primary: Colors.pink,
+                        onSurface: Colors.pink,
+                        side: BorderSide(color: Colors.pink, width: 0.0),
+                        elevation: 4,
+                        minimumSize: Size(160, 50),
+                        shadowColor: Colors.pink,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation1, animation2) => QuestionScreen(),
+                            transitionDuration: Duration.zero,
+                          ),
+                        );
+                      },
+
                     ),
                   ],
                 ),
